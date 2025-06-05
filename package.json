@@ -8,6 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "jest"
+    "@testing-library/jest-dom": "^6.6.3",
+    "jest-environment-jsdom": "^30.0.0-beta.3",
     "start": "node server.js"
   },
   "dependencies": {
