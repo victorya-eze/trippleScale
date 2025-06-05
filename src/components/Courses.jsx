@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Search, Clock, Book, Users, Star } from "lucide-react";
+import axios from "axios";
 
 // Importing SVG logos
 import AwsLogo from "../assets/aws-logo.svg"; 
@@ -148,12 +149,21 @@ const Courses = () => {
     return errors;
   };
 
-  const handleEnrollment = () => {
+  const handleEnrollment = async () => {
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      // Proceed with enrollment
-      console.log("Enrollment data:", formData);
-      // Add your enrollment logic here
+      try {
+        const response = await axios.post('/api/enrollments', {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          courseType: selectedCourse.title,
+          amount: selectedCourse.price,
+        });
+        console.log('Enrollment stored:', response.data);
+      } catch (err) {
+        console.error('Enrollment failed:', err);
+      }
     } else {
       setFormErrors(errors);
     }
