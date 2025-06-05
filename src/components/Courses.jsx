@@ -50,7 +50,7 @@ const courses = [
   },
   {
     id: 3,
-    title: "DevOps Fundamentals",
+    title: "DevOps",
     logo: DevOpsLogo,
     price: "£700",
     duration: "8 weeks",
@@ -143,8 +143,11 @@ const Courses = () => {
   const validateForm = () => {
     const errors = {};
     if (!formData.name.trim()) errors.name = "Name is required";
-    if (!formData.email.trim()) errors.email = "Email is required";
-    if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Invalid email format";
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
     if (!formData.phone.trim()) errors.phone = "Phone is required";
     return errors;
   };
@@ -157,6 +160,7 @@ const Courses = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+
           courseType: selectedCourse?.title,
           amount: selectedCourse?.price,
           stripeSessionId: 'test-session-id',
@@ -164,6 +168,14 @@ const Courses = () => {
         console.log('Enrollment stored:', response.data);
       } catch (err) {
         console.error('Enrollment error:', err);
+
+          courseType: selectedCourse.title,
+          amount: selectedCourse.price,
+        });
+        console.log('Enrollment stored:', response.data);
+      } catch (err) {
+        console.error('Enrollment failed:', err);
+
       }
     } else {
       setFormErrors(errors);
@@ -384,6 +396,17 @@ const Courses = () => {
                         className="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition-all font-semibold"
                       >
                         Proceed to Payment
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCourse(null);
+                          setShowForm(false);
+                          setFormErrors({});
+                        }}
+                        className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition-all font-semibold"
+                      >
+                        Close
                       </button>
                     </form>
                   </div>
