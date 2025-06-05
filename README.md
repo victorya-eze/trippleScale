@@ -6,3 +6,15 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Environment Variables
+
+The API layer requires a MongoDB connection string. Create a `.env` file with the
+following variable:
+
+```
+MONGODB_URI=<your mongodb connection uri>
+```
+
+When running the Docker image or the development server, ensure this variable is
+available so the API routes can connect to the database.
