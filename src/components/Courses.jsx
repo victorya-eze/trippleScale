@@ -355,6 +355,17 @@ const Courses = () => {
                       >
                         Proceed to Payment
                       </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCourse(null);
+                          setShowForm(false);
+                          setFormErrors({});
+                        }}
+                        className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition-all font-semibold"
+                      >
+                        Close
+                      </button>
                     </form>
                   </div>
                 )}
