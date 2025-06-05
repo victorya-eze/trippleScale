@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     // Connect to MongoDB
     await dbConnect();
 
-    const { name, email, phone, courseType, amount } = req.body;
+    const { name, email, phone, courseType, amount, stripeSessionId } = req.body;
 
     // Create enrollment in MongoDB
     const enrollment = await Enrollment.create({
@@ -19,6 +19,7 @@ export default async function handler(req, res) {
       phone,
       courseType,
       amount,
+      stripeSessionId,
       status: 'pending',  // Default status
     });
 

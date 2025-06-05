@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Search, Clock, Book, Users, Star } from "lucide-react";
+import axios from "axios";
 
 // Importing SVG logos
 import AwsLogo from "../assets/aws-logo.svg"; 
 import AzureLogo from "../assets/azure-logo.svg"; 
-import DevOpsLogo from "../assets/devops-logo.svg"; 
-import NextJsLogo from "../assets/next-js-logo.svg"; 
+import DevOpsLogo from "../assets/devops-logo.svg";
+import NextJsLogo from "../assets/next-js-logo.svg";
 import PythonLogo from "../assets/python-logo.svg";
+import LgtmLogo from "../assets/lgtm-logo.svg";
 
 const courses = [
   {
@@ -48,7 +50,7 @@ const courses = [
   },
   {
     id: 3,
-    title: "DevOps Fundamentals",
+    title: "DevOps",
     logo: DevOpsLogo,
     price: "£700",
     duration: "8 weeks",
@@ -99,7 +101,25 @@ const courses = [
       "Working with Libraries: Exploring NumPy, Pandas, and Matplotlib for data analysis and visualization.",
       "Building Python Applications: Writing and deploying Python applications with best practices.",
     ],
-},
+  },
+  {
+    id: 6,
+    title: "obseverbility",
+    logo: LgtmLogo,
+    price: "£300",
+    duration: "6 weeks",
+    level: "Intermediate",
+    students: 0,
+    rating: 4.0,
+    category: "DevOps",
+    outline: [
+      "Introduction to Observability tools and principles.",
+      "Setting up logging, metrics, and tracing for applications.",
+      "Visualizing system health and performance metrics.",
+      "Alerting strategies and best practices.",
+      "Hands-on with popular observability platforms.",
+    ],
+  },
 
 ];
 
@@ -123,18 +143,40 @@ const Courses = () => {
   const validateForm = () => {
     const errors = {};
     if (!formData.name.trim()) errors.name = "Name is required";
-    if (!formData.email.trim()) errors.email = "Email is required";
-    if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Invalid email format";
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
     if (!formData.phone.trim()) errors.phone = "Phone is required";
     return errors;
   };
 
-  const handleEnrollment = () => {
+  const handleEnrollment = async () => {
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      // Proceed with enrollment
-      console.log("Enrollment data:", formData);
-      // Add your enrollment logic here
+      try {
+        const response = await axios.post('/api/enrollments', {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+
+          courseType: selectedCourse?.title,
+          amount: selectedCourse?.price,
+          stripeSessionId: 'test-session-id',
+        });
+        console.log('Enrollment stored:', response.data);
+      } catch (err) {
+        console.error('Enrollment error:', err);
+
+          courseType: selectedCourse.title,
+          amount: selectedCourse.price,
+        });
+        console.log('Enrollment stored:', response.data);
+      } catch (err) {
+        console.error('Enrollment failed:', err);
+
+      }
     } else {
       setFormErrors(errors);
     }
@@ -354,6 +396,17 @@ const Courses = () => {
                         className="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition-all font-semibold"
                       >
                         Proceed to Payment
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCourse(null);
+                          setShowForm(false);
+                          setFormErrors({});
+                        }}
+                        className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition-all font-semibold"
+                      >
+                        Close
                       </button>
                     </form>
                   </div>
