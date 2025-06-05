@@ -129,12 +129,29 @@ const Courses = () => {
     return errors;
   };
 
-  const handleEnrollment = () => {
+  const handleEnrollment = async () => {
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      // Proceed with enrollment
-      console.log("Enrollment data:", formData);
-      // Add your enrollment logic here
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        courseType: selectedCourse?.title,
+        amount: selectedCourse?.price,
+        stripeSessionId: 'test-session-id'
+      };
+
+      try {
+        const res = await fetch('/api/enrollments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        console.log('Enrollment stored:', data);
+      } catch (err) {
+        console.error('Enrollment error:', err);
+      }
     } else {
       setFormErrors(errors);
     }
