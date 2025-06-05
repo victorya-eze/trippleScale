@@ -123,8 +123,11 @@ const Courses = () => {
   const validateForm = () => {
     const errors = {};
     if (!formData.name.trim()) errors.name = "Name is required";
-    if (!formData.email.trim()) errors.email = "Email is required";
-    if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "Invalid email format";
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
     if (!formData.phone.trim()) errors.phone = "Phone is required";
     return errors;
   };
