@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Search, Clock, Book, Users, Star } from "lucide-react";
+import axios from "axios";
 
 // Importing SVG logos
 import AwsLogo from "../assets/aws-logo.svg"; 
 import AzureLogo from "../assets/azure-logo.svg"; 
-import DevOpsLogo from "../assets/devops-logo.svg"; 
-import NextJsLogo from "../assets/next-js-logo.svg"; 
+import DevOpsLogo from "../assets/devops-logo.svg";
+import NextJsLogo from "../assets/next-js-logo.svg";
 import PythonLogo from "../assets/python-logo.svg";
+import LgtmLogo from "../assets/lgtm-logo.svg";
 
 const courses = [
   {
@@ -99,7 +101,25 @@ const courses = [
       "Working with Libraries: Exploring NumPy, Pandas, and Matplotlib for data analysis and visualization.",
       "Building Python Applications: Writing and deploying Python applications with best practices.",
     ],
-},
+  },
+  {
+    id: 6,
+    title: "obseverbility",
+    logo: LgtmLogo,
+    price: "£300",
+    duration: "6 weeks",
+    level: "Intermediate",
+    students: 0,
+    rating: 4.0,
+    category: "DevOps",
+    outline: [
+      "Introduction to Observability tools and principles.",
+      "Setting up logging, metrics, and tracing for applications.",
+      "Visualizing system health and performance metrics.",
+      "Alerting strategies and best practices.",
+      "Hands-on with popular observability platforms.",
+    ],
+  },
 
 ];
 
@@ -132,23 +152,16 @@ const Courses = () => {
   const handleEnrollment = async () => {
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      const payload = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        courseType: selectedCourse?.title,
-        amount: selectedCourse?.price,
-        stripeSessionId: 'test-session-id'
-      };
-
       try {
-        const res = await fetch('/api/enrollments', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+        const response = await axios.post('/api/enrollments', {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          courseType: selectedCourse?.title,
+          amount: selectedCourse?.price,
+          stripeSessionId: 'test-session-id',
         });
-        const data = await res.json();
-        console.log('Enrollment stored:', data);
+        console.log('Enrollment stored:', response.data);
       } catch (err) {
         console.error('Enrollment error:', err);
       }
