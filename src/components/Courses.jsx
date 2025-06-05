@@ -50,11 +50,11 @@ const courses = [
   },
   {
     id: 3,
-    title: "DevOps",
+    title: "Advanced DevOps",
     logo: DevOpsLogo,
     price: "£700",
     duration: "8 weeks",
-    level: "Beginner",
+    level: "Advanced",
     students: 654,
     rating: 4.5,
     category: "DevOps",
