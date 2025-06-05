@@ -50,7 +50,7 @@ const courses = [
   },
   {
     id: 3,
-    title: "DevOps Fundamentals",
+    title: "DevOps",
     logo: DevOpsLogo,
     price: "£700",
     duration: "8 weeks",
@@ -160,12 +160,22 @@ const Courses = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+
+          courseType: selectedCourse?.title,
+          amount: selectedCourse?.price,
+          stripeSessionId: 'test-session-id',
+        });
+        console.log('Enrollment stored:', response.data);
+      } catch (err) {
+        console.error('Enrollment error:', err);
+
           courseType: selectedCourse.title,
           amount: selectedCourse.price,
         });
         console.log('Enrollment stored:', response.data);
       } catch (err) {
         console.error('Enrollment failed:', err);
+
       }
     } else {
       setFormErrors(errors);
