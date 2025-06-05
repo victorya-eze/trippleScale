@@ -15,6 +15,7 @@ Jest is configured in `jest.config.js`. The `setupFilesAfterEnv` option points t
 you run `npm install` to fetch dev dependencies before running tests with
 `npx jest` or a similar command.
 
+
 ## Environment Variables
 
 The API layer requires a MongoDB connection string. Create a `.env` file with the
@@ -26,4 +27,5 @@ MONGODB_URI=<your mongodb connection uri>
 
 When running the Docker image or the development server, ensure this variable is
 available so the API routes can connect to the database.
+
 
