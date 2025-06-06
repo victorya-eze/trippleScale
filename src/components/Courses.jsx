@@ -100,6 +100,7 @@ const courses = [
   },
   {
     id: 6,
+
     title: "Obseverbility",
     logo: LgtmLogo,
     price: "£300",
