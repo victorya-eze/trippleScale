@@ -3,13 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Search, Clock, Book, Users, Star } from "lucide-react";
 import axios from "axios";
 
-// Importing SVG logos
-import AwsLogo from "../assets/aws-logo.svg"; 
-import AzureLogo from "../assets/azure-logo.svg"; 
-import DevOpsLogo from "../assets/devops-logo.svg";
-import NextJsLogo from "../assets/next-js-logo.svg";
-import PythonLogo from "../assets/python-logo.svg";
-import LgtmLogo from "../assets/lgtm-logo.svg";
+// Import courses data
+import courses from "../data/courses";
+
 
 const courses = [
   {
@@ -50,11 +46,11 @@ const courses = [
   },
   {
     id: 3,
-    title: "DevOps",
+    title: "Advanced DevOps",
     logo: DevOpsLogo,
     price: "£700",
     duration: "8 weeks",
-    level: "Beginner",
+    level: "Advanced",
     students: 654,
     rating: 4.5,
     category: "DevOps",
@@ -104,7 +100,8 @@ const courses = [
   },
   {
     id: 6,
-    title: "Oberverbility",
+
+    title: "Obseverbility",
     logo: LgtmLogo,
     price: "£300",
     duration: "6 weeks",
@@ -122,6 +119,7 @@ const courses = [
   },
 
 ];
+
 
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -160,22 +158,13 @@ const Courses = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-
           courseType: selectedCourse?.title,
           amount: selectedCourse?.price,
           stripeSessionId: 'test-session-id',
         });
         console.log('Enrollment stored:', response.data);
       } catch (err) {
-        console.error('Enrollment error:', err);
-
-          courseType: selectedCourse.title,
-          amount: selectedCourse.price,
-        });
-        console.log('Enrollment stored:', response.data);
-      } catch (err) {
         console.error('Enrollment failed:', err);
-
       }
     } else {
       setFormErrors(errors);
