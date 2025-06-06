@@ -30,7 +30,7 @@ describe('Courses component', () => {
     const select = screen.getByRole('combobox');
     fireEvent.change(select, { target: { value: 'DevOps' } });
 
-    expect(screen.getByText('Advanced DevOps')).toBeInTheDocument();
+    expect(screen.getByText('DevOps Fundamentals')).toBeInTheDocument();
     expect(screen.queryByText('AWS Cloud Computing')).toBeNull();
   });
 });
