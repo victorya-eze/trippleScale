@@ -44,10 +44,10 @@ const courses = [
   },
   {
     id: 3,
-    title: "DevOps Fundamentals",
+    title: "DevOps",
     logo: DevOpsLogo,
     price: "£700",
-    duration: "8 weeks",
+    duration: "16 weeks",
     level: "Beginner",
     students: 654,
     rating: 4.5,
@@ -98,7 +98,7 @@ const courses = [
   },
   {
     id: 6,
-    title: "obseverbility",
+    title: "Observerbility",
     logo: LgtmLogo,
     price: "£300",
     duration: "6 weeks",
