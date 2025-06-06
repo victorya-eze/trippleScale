@@ -1,3 +1,8 @@
+process.env.MONGODB_URI = 'mongodb://localhost:27017/test';
+jest.mock('../lib/mongodb', () => ({
+  __esModule: true,
+  default: jest.fn(() => Promise.resolve())
+}));
 import enrollmentsHandler from '../pages/api/enrollments.js';
 
 function createRes() {

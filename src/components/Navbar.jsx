@@ -1,10 +1,12 @@
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import logo from "../assets/logo.png";
 import { navItems } from "../constants"; // Ensure navItems reflect new sections
+import courses from "../data/courses";
 
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [showCourseDropdown, setShowCourseDropdown] = useState(false);
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
@@ -16,6 +18,7 @@ const Navbar = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setMobileDrawerOpen(false); // Close mobile menu after clicking
+      setShowCourseDropdown(false);
     }
   };
 
@@ -30,14 +33,31 @@ const Navbar = () => {
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
               <li key={index}>
-                <a 
-                  href={item.href} 
+                <a
+                  href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                 >
                   {item.label}
                 </a>
               </li>
             ))}
+            <li className="relative">
+              <button
+                onClick={() => setShowCourseDropdown((prev) => !prev)}
+                className="flex items-center gap-1"
+              >
+                All Courses <ChevronDown className="w-4 h-4" />
+              </button>
+              {showCourseDropdown && (
+                <ul className="absolute left-0 mt-2 bg-neutral-900 border border-neutral-700 rounded-md shadow-lg z-10">
+                  {courses.map((course) => (
+                    <li key={course.id} className="whitespace-nowrap px-4 py-2 hover:bg-neutral-800">
+                      <a href="#courses" onClick={(e) => handleNavClick(e, '#courses')}>{course.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
           </ul>
           <div className="hidden lg:flex justify-center space-x-12 items-center">
             <a
