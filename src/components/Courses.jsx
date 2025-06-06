@@ -104,7 +104,7 @@ const courses = [
   },
   {
     id: 6,
-    title: "obseverbility",
+    title: "Oberverbility",
     logo: LgtmLogo,
     price: "£300",
     duration: "6 weeks",
