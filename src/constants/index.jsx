@@ -11,7 +11,7 @@ export const navItems = [
   { label: "Features", href: "#features" },
   { label: "Courses", href: "#courses" },
   { label: "Testimonials", href: "#testimonials" },
-  { label: "Blog", href: "/blog" },
+  { label: "Blog", href: "https://tripplescale.substack.com" },
 ];
 
 export const features = [
