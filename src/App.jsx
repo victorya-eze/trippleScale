@@ -1,22 +1,17 @@
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import FeatureSection from "./components/FeatureSection";
-import Courses from "./components/Courses";
-import Footer from "./components/Footer";
-import Testimonials from "./components/Testimonials";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Blog from "./pages/Blog";
+import EnrollmentsAdmin from "../pages/admin/enrollments.jsx";
 
 const App = () => {
   return (
-    <>
-      <Navbar />
-      <div className="max-w-7xl mx-auto pt-20 px-6">
-        <HeroSection />
-        <FeatureSection />
-        <Courses />
-        <Testimonials />
-        <Footer />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/admin/enrollments" element={<EnrollmentsAdmin />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

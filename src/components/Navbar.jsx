@@ -1,5 +1,6 @@
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { navItems } from "../constants"; // Ensure navItems reflect new sections
 import courses from "../data/courses";
@@ -7,6 +8,7 @@ import courses from "../data/courses";
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [showCourseDropdown, setShowCourseDropdown] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
@@ -14,12 +16,16 @@ const Navbar = () => {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setMobileDrawerOpen(false); // Close mobile menu after clicking
-      setShowCourseDropdown(false);
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(href);
     }
+    setMobileDrawerOpen(false);
+    setShowCourseDropdown(false);
   };
 
   return (
