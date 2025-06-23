@@ -17,9 +17,13 @@ const Navbar = () => {
   const handleNavClick = (e, href) => {
     e.preventDefault();
     if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      if (window.location.pathname !== '/') {
+        window.location.href = `/${href}`;
+      } else {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     } else if (href.startsWith('http')) {
       window.location.href = href;
@@ -34,7 +38,10 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-700/80">
       <div className="container px-4 mx-auto relative lg:text-sm">
         <div className="flex justify-between items-center">
-          <div className="flex items-center flex-shrink-0">
+          <div
+            className="flex items-center flex-shrink-0 cursor-pointer"
+            onClick={() => navigate('/')}
+          >
             <img className="h-10 w-10 mr-2" src={logo} alt="Logo" />
             <span className="text-xl tracking-tight">trippleScale</span>
           </div>
