@@ -21,6 +21,8 @@ const Navbar = () => {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
+    } else if (href.startsWith('http')) {
+      window.location.href = href;
     } else {
       navigate(href);
     }
