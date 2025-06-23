@@ -48,12 +48,15 @@ const Navbar = () => {
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
               <li key={index}>
-                <a
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                >
-                  {item.label}
-                </a>
+                {item.newTab ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">
+                    {item.label}
+                  </a>
+                ) : (
+                  <a href={item.href} onClick={(e) => handleNavClick(e, item.href)}>
+                    {item.label}
+                  </a>
+                )}
               </li>
             ))}
             <li className="relative">
@@ -94,12 +97,15 @@ const Navbar = () => {
             <ul>
               {navItems.map((item, index) => (
                 <li key={index} className="py-4">
-                  <a 
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                  >
-                    {item.label}
-                  </a>
+                  {item.newTab ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <a href={item.href} onClick={(e) => handleNavClick(e, item.href)}>
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
